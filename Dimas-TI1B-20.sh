@@ -7,99 +7,151 @@
 clear
 
 echo "======================================================"
-echo "     Selamat Datang di Aplikasi ID-Backup Manager     "
+echo "       Selamat Datang di Aplikasi ID-File Master      "
 echo "======================================================"
 echo "=================== Dibuat Oleh ======================"
 echo "          Muhammad Irsyad Dimas Abdillah             "
 echo "                   2341720088                        "
-echo " ================== Kelas TI-1B ======================"
+echo "=================== Kelas TI-1B ======================"
 
 function menu() {
-    echo "ID-Backup Manager"
-    echo "1. Pilih File/Directory untuk Dicadangkan"
-    echo "2. Tentukan Lokasi Penyimpanan Cadangan"
-    echo "3. Kompresi Cadangan"
-    echo "4. Verifikasi Integritas Cadangan"
-    echo "5. Pulihkan File/Directory dari Cadangan"
-    echo "6. Buat Laporan Pencadangan"
-    echo "7. Keluar"
-    echo -n "Masukkan Pilihan: "
+    echo "================================"
+    echo "          Daftar Menu           "
+    echo "================================"
+    echo "1. Membuat Direktori"
+    echo "2. Lihat Direktori dan File"
+    echo "3. Buat File"
+    echo "4. Lihat Detail File"
+    echo "5. Hapus File"
+    echo "6. Hapus Folder"
+    echo "7. Copy File"
+    echo "8. Move File"
+    echo "9. Baca File"
+    echo "10. Cari File Berdasarkan Nama"
+    echo "11. Ubah Izin File"
+    echo "12. Kompresi Direktori"
+    echo "13. Keluar"
+    echo -n "Masukkan menu: "
 }
 
-# Function Pilih File/Directory untuk Dicadangkan
-function pilihDirektori() {
-    echo -n "Masukkan path Direktori/File yang ingin dicadangkan: "
-    read path
-    echo -n "Masukkan pola pencarian (misalnya, *.txt): "
-    read pola
-    files=$(find "$path" -type f -name "$pola")
-    echo "File yang dipilih:"
-    echo "$files"
+# Fungsi Membuat Direktori
+function buatDirektori() {
+    echo -n "Masukkan nama direktori yang ingin dibuat: "
+    read nama_direktori
+    mkdir -p "$nama_direktori"
+    echo "Direktori '$nama_direktori' telah dibuat."
 }
 
-# Function Tentukan Lokasi Penyimpanan Cadangan
-function tentukanLokasi() {
-    echo -n "Masukkan path lokasi penyimpanan cadangan: "
-    read lokasi
-    mkdir -p "$lokasi"
-    echo "Lokasi penyimpanan cadangan: $lokasi"
+# Fungsi Lihat Direktori dan File
+function lihatDirektori() {
+    echo -n "Masukkan path direktori yang ingin dilihat: "
+    read path_direktori
+    ls -l "$path_direktori"
 }
 
-# Function Kompresi Cadangan
-function kompresiCadangan() {
-    echo "Kompresi cadangan..."
-    tar_file="$lokasi/backup_$(date +%F).tar.gz"
-    tar -czf "$tar_file" $files
-    echo "Cadangan diperbarui dan tersimpan di $tar_file"
+# Fungsi Buat File
+function buatFile() {
+    echo -n "Masukkan nama file yang ingin dibuat: "
+    read nama_file
+    touch "$nama_file"
+    echo "File '$nama_file' telah dibuat."
 }
 
-# Function Verifikasi Integritas Cadangan
-function verifikasiIntegritas() {
-    echo "Verifikasi integritas cadangan..."
-    if [[ -f "$tar_file" ]]; then
-        md5sum "$tar_file" > "$tar_file.md5"
-        echo "Checksum untuk file cadangan: $(cat "$tar_file.md5")"
-    else
-        echo "File cadangan tidak ditemukan untuk diverifikasi"
-    fi
+# Fungsi Lihat Detail File
+function lihatDetailFile() {
+    echo -n "Masukkan nama file yang ingin dilihat: "
+    read nama_file
+    stat "$nama_file"
 }
 
-# Function Pulihkan File/Directory dari Cadangan
-function pulihkanFile() {
-    echo -n "Masukkan path file cadangan (tar.gz) yang akan dipulihkan: "
-    read restore_file
-    echo -n "Masukkan lokasi tujuan pemulihan: "
-    read restore_loc
-    mkdir -p "$restore_loc"
-    tar -xzf "$restore_file" -C "$restore_loc"
-    echo "File telah dipulihkan ke: $restore_loc"
+# Fungsi Hapus File
+function hapusFile() {
+    echo -n "Masukkan nama file yang ingin dihapus: "
+    read nama_file
+    rm -f "$nama_file"
+    echo "File '$nama_file' telah dihapus."
 }
 
-# Function Buat Laporan Pencadangan
-function buatLaporan() {
-    file_laporan="$lokasi/backup_report_$(date +%F).txt"
-    echo "Laporan Pencadangan - $(date)" > "$file_laporan"
-    echo "File yang dicadangkan:" >> "$file_laporan"
-    echo "$files" >> "$file_laporan"
-    echo "Lokasi Penyimpanan: $lokasi" >> "$file_laporan"
-    echo "Waktu Pencadangan: $(date)" >> "$file_laporan"
-    echo "Laporan pencadangan dibuat di: $file_laporan"
-    cat "$file_laporan"
+# Fungsi Hapus Folder
+function hapusFolder() {
+    echo -n "Masukkan nama folder yang ingin dihapus: "
+    read nama_folder
+    rm -rf "$nama_folder"
+    echo "Folder '$nama_folder' telah dihapus."
 }
 
-# Main loop
+# Fungsi Copy File
+function copyFile() {
+    echo -n "Masukkan nama file yang ingin dicopy: "
+    read file_sumber
+    echo -n "Masukkan tujuan copy file: "
+    read file_tujuan
+    cp "$file_sumber" "$file_tujuan"
+    echo "File '$file_sumber' telah dicopy ke '$file_tujuan'."
+}
+
+# Fungsi Move File
+function moveFile() {
+    echo -n "Masukkan nama file yang ingin dipindahkan: "
+    read file_sumber
+    echo -n "Masukkan tujuan pemindahan file: "
+    read file_tujuan
+    mv "$file_sumber" "$file_tujuan"
+    echo "File '$file_sumber' telah dipindahkan ke '$file_tujuan'."
+}
+
+# Fungsi Baca File
+function bacaFile() {
+    echo -n "Masukkan nama file yang ingin dibaca: "
+    read nama_file
+    cat "$nama_file"
+}
+
+# Fungsi Cari File Berdasarkan Nama
+function cariFile() {
+    echo -n "Masukkan nama file yang ingin dicari: "
+    read nama_file
+    find . -name "$nama_file"
+}
+
+# Fungsi Ubah Izin File
+function ubahIzinFile() {
+    echo -n "Masukkan nama file yang izinnya ingin diubah: "
+    read nama_file
+    echo -n "Masukkan izin baru (misalnya 755): "
+    read izin_baru
+    chmod "$izin_baru" "$nama_file"
+    echo "Izin file '$nama_file' telah diubah menjadi $izin_baru."
+}
+
+# Fungsi Kompresi Direktori
+function kompresiDirektori() {
+    echo -n "Masukkan nama direktori yang ingin dikompresi: "
+    read nama_direktori
+    file_tar="$nama_direktori.tar.gz"
+    tar -czf "$file_tar" "$nama_direktori"
+    echo "Direktori '$nama_direktori' telah dikompresi menjadi '$file_tar'."
+}
+
+# Loop utama
 while true; do
     menu
     read pilihan
     
     case $pilihan in
-        1) pilihDirektori ;;
-        2) tentukanLokasi ;;
-        3) kompresiCadangan ;;
-        4) verifikasiIntegritas ;;
-        5) pulihkanFile ;;
-        6) buatLaporan ;;
-        7) exit 0 ;;
+        1) buatDirektori ;;
+        2) lihatDirektori ;;
+        3) buatFile ;;
+        4) lihatDetailFile ;;
+        5) hapusFile ;;
+        6) hapusFolder ;;
+        7) copyFile ;;
+        8) moveFile ;;
+        9) bacaFile ;;
+        10) cariFile ;;
+        11) ubahIzinFile ;;
+        12) kompresiDirektori ;;
+        13) exit 0 ;;
         *) echo "Pilihan tidak valid. Silakan coba lagi." ;;
     esac
     
