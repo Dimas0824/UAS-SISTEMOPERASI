@@ -15,9 +15,9 @@ echo "                   2341720088                        "
 echo "=================== Kelas TI-1B ======================"
 
 function menu() {
-    echo "================================"
-    echo "          Daftar Menu           "
-    echo "================================"
+    echo "======================================"
+    echo "           ID-File Master             "
+    echo "======================================"
     echo "1. Membuat Direktori"
     echo "2. Lihat Direktori dan File"
     echo "3. Buat File"
@@ -31,7 +31,7 @@ function menu() {
     echo "11. Ubah Izin File"
     echo "12. Kompresi Direktori"
     echo "13. Keluar"
-    echo -n "Masukkan menu: "
+    echo -n "Masukkan pilihan anda: "
 }
 
 # Fungsi Membuat Direktori
