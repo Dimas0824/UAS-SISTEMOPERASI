@@ -24,13 +24,12 @@ function menu() {
     echo "4. Lihat Detail File"
     echo "5. Hapus File"
     echo "6. Hapus Folder"
-    echo "7. Copy File"
-    echo "8. Move File"
-    echo "9. Baca File"
-    echo "10. Cari File Berdasarkan Nama"
-    echo "11. Ubah Izin File"
-    echo "12. Kompresi Direktori"
-    echo "13. Keluar"
+    echo "7. Move File"
+    echo "8. Baca File"
+    echo "9. Cari File Berdasarkan Nama"
+    echo "10. Ubah Izin File"
+    echo "11. Kompresi Direktori"
+    echo "12. Keluar"
     echo -n "Masukkan pilihan anda: "
 }
 
@@ -78,16 +77,6 @@ function hapusFolder() {
     read nama_folder
     rm -rf "$nama_folder"
     echo "Folder '$nama_folder' telah dihapus."
-}
-
-# Fungsi Copy File
-function copyFile() {
-    echo -n "Masukkan nama file yang ingin dicopy: "
-    read file_sumber
-    echo -n "Masukkan tujuan copy file: "
-    read file_tujuan
-    cp "$file_sumber" "$file_tujuan"
-    echo "File '$file_sumber' telah dicopy ke '$file_tujuan'."
 }
 
 # Fungsi Move File
@@ -145,13 +134,12 @@ while true; do
         4) lihatDetailFile ;;
         5) hapusFile ;;
         6) hapusFolder ;;
-        7) copyFile ;;
-        8) moveFile ;;
-        9) bacaFile ;;
-        10) cariFile ;;
-        11) ubahIzinFile ;;
-        12) kompresiDirektori ;;
-        13) exit 0 ;;
+        7) moveFile ;;
+        8) bacaFile ;;
+        9) cariFile ;;
+        10) ubahIzinFile ;;
+        11) kompresiDirektori ;;
+        12) exit 0 ;;
         *) echo "Pilihan tidak valid. Silakan coba lagi." ;;
     esac
     
